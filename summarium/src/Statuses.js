@@ -1,6 +1,6 @@
 function Status(data){
     return(
-        <div class="Status">
+        <div className="Status">
             placeholder
         </div>
     );
@@ -8,7 +8,7 @@ function Status(data){
 
 function Statuses(){
     return(
-        <div class="Statuses">
+        <div className="Statuses">
             <Status data="test"></Status>
         </div>
     );
