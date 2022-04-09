@@ -18,7 +18,7 @@ function App() {
     {
       "title": "My other status",
       "bullet_points": [{'key': 'ping', 'value':'200ms'}, {'key':'happy_days', 'value': 'Of course!'}]
-    }
+    },
   ];
   return (
     <div className="App">

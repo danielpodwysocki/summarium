@@ -20,11 +20,10 @@ function Status(props){
 
 function Statuses(props){
     let statuses = []
-    let bullet_points = [{'key': 'ping', 'value':'100ms'}, {'key':'happy_days', 'value': 'True'}]
 
     props.statuses.forEach(status => {
         console.log(status.title)
-        statuses.push(<Status title={status.title} bullet_points={bullet_points}></Status>)
+        statuses.push(<Status title={status.title} bullet_points={status.bullet_points}></Status>)
     });
 
     return(
