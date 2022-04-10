@@ -1,7 +1,5 @@
 function Status(props){
-    console.log("rendering status: "  + props.title)
-    console.log("props:")
-    console.log(props)
+    console.log("rendering status: " + props.title + "props: ", props)
     return(
         <div className="Status">
             <h1>{props.title}</h1>
@@ -22,7 +20,6 @@ function Statuses(props){
     let statuses = []
 
     props.statuses.forEach(status => {
-        console.log(status.title)
         statuses.push(<Status title={status.title} bullet_points={status.bullet_points}></Status>)
     });
 
