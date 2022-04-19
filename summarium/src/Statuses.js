@@ -1,27 +1,47 @@
+import React, { useState, useEffect } from 'react';
+
 function Status(props){
-    console.log("rendering status: " + props.title + "props: ", props)
+    const refetch_interval = 1000
+
+    function update_data(url, data){
+        console.log("fetching data from", url)
+        fetch(url).then(response => response.json())
+        .then(new_data => {
+            if(JSON.stringify(new_data) !== JSON.stringify(data)){
+                setData(new_data);
+                console.log("old data", data)
+                console.log("fetched data: ",new_data)
+            }
+        });      
+    }
+
+    const [data, setData] = useState();
+    const data_url = props.config.url;
+    
+    useEffect( () =>{
+        const interval = setInterval(() => {
+            update_data(data_url, data)
+        }, refetch_interval);
+    return () => clearInterval(interval);
+  }, []);
+
+        
+
+    console.log("rendering status: " + props.config.name + "props: ", props)
+
     return(
         <div className="Status">
-            <h1>{props.title}</h1>
-            <ul>
-            {
-                props.bullet_points.map(
-                    kv_pair => 
-                   <li key={kv_pair['key']}> {kv_pair['key']}: {kv_pair['value']} </li>
-                )
-            }
-
-            </ul>
+            <h1>{props.config.name}</h1>
         </div>
     );
 }
 
 function Statuses(props){
     let statuses = []
+    props.status_configs.forEach(status_config => {
+            statuses.push(<Status config={status_config}></Status>)
+        });
 
-    props.statuses.forEach(status => {
-        statuses.push(<Status title={status.title} bullet_points={status.bullet_points}></Status>)
-    });
 
     return(
         <div className="Statuses">

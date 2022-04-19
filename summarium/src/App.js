@@ -1,6 +1,25 @@
 import './App.css';
 import Header from './Header.js';
 import Statuses from './Statuses';
+import React, { useState, useEffect } from 'react';
+
+function load_config(mock = false){
+  // todo: implement this, for now returning a mock config
+  let mock_config = {
+    "statuses":[
+      {
+        "name": "my_mock_status",
+        "url": "http://localhost:3000/tests/mock_exporter.json"
+      },
+      {
+        "name": "seconds_exporter",
+        "url": "http://127.0.0.1:8000/api/v1/clock"
+      }
+
+    ]
+  }
+  return mock_config
+}
 
 function App() {
   /*
@@ -10,20 +29,17 @@ function App() {
         - key str()- name of the bullet point (for example "latency")
         - value str() - value to be displayed (for example 100ms)
   */
-  let statuses = [
-    {
-      "title": "My test status",
-      "bullet_points": [{'key': 'ping', 'value':'100ms'}, {'key':'happy_days', 'value': 'True'}]
-    },
-    {
-      "title": "My other status",
-      "bullet_points": [{'key': 'ping', 'value':'200ms'}, {'key':'happy_days', 'value': 'Of course!'}]
-    },
-  ];
+  
+  const config = load_config()
+  config.statuses.forEach(
+    (status) => console.log(status.name, status.url)
+  )
+  
+
   return (
     <div className="App">
       <Header></Header>
-      <Statuses statuses={statuses}></Statuses>
+      <Statuses status_configs={config.statuses}></Statuses>
     </div>
   );
 }
